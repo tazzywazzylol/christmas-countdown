@@ -1,0 +1,40 @@
+import discord
+from discord.ext import commands
+import requests
+
+command_prefix = '~'
+
+intents = discord.Intents().all()
+client = commands.Bot(command_prefix=command_prefix, intents=intents)
+
+# API URL for the Christmas countdown
+api_url = "https://christmas-days.anvil.app/_/api/get_days"
+
+@client.event
+async def on_ready():
+    print(f'Logged in as {client.user.name}')
+
+@client.command()
+async def countdown(ctx):
+    # Fetches Christmas countdown from the API
+    response = requests.get(api_url)
+    data = response.json()
+    
+    # Create an embed
+    embed = discord.Embed(
+        title="Days until Christmas 🎄",
+        description=f"There are {data['Days to Christmas']} days until Christmas 🎅🏼",
+        color=0xFF0000  # You can set the color to whatever u want
+    )
+    
+    # Set the image in the embed
+    embed.set_image(url="https://atmosfx.com/cdn/shop/articles/Santa_s_Sleigh_Ride_Key_Art_R1_flat_800x.jpg?v=1542781443")
+    
+    # Set the footer
+    embed.set_footer(text="Code created by taz")
+    
+    # Send the embed as a message
+    await ctx.send(embed=embed)
+
+# Replace 'your bot token' with your bot token
+client.run("your bot token")
