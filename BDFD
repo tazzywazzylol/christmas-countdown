@@ -1,0 +1,5 @@
+$nomention
+$httpGet[https://christmas-days.anvil.app/_/api/get_days]
+$title[Days until christmas 🎄]
+$description[There are $httpResult[Days to Christmas] days until christmas🎅🏼]
+$image[https://atmosfx.com/cdn/shop/articles/Santa_s_Sleigh_Ride_Key_Art_R1_flat_800x.jpg?v=1542781443]
